@@ -7,7 +7,7 @@ import (
 )
 
 type ClientsRepository interface {
-	AddClient(req *models.ClientCreateReqDTO) error
+	AddClient(req *models.Client) error
 	GetClientByID(id uint) (*models.Client, error)
 	GetAllClients() ([]models.ClientRespDTO, error)
 	Update(id uint, client models.ClientUpdateReqDTO) error
@@ -23,11 +23,11 @@ func NewClientsRepository(db *gorm.DB) ClientsRepository {
 	return &clientsRepository{db: db}
 }
 
-func (r *clientsRepository) AddClient(req *models.ClientCreateReqDTO) error {
+func (r *clientsRepository) AddClient(req *models.Client) error {
 	if req == nil {
 		return nil
 	}
-	return r.db.Model(&models.Client{}).Create(req).Error
+	return r.db.Create(req).Error
 }
 
 func (r *clientsRepository) GetClientByID(id uint) (*models.Client, error) {

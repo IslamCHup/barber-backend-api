@@ -22,7 +22,10 @@ func NewClientsService(service repository.ClientsRepository) ClientService {
 }
 
 func (s *clientService) AddClient(req *models.ClientCreateReqDTO) error {
-	if err := s.service.AddClient(req); err != nil {
+	res := models.Client{
+		FullName: req.FullName,
+	}
+	if err := s.service.AddClient(&res); err != nil {
 		return err
 	}
 	return nil

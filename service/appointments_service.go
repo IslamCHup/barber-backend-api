@@ -81,20 +81,13 @@ func (s *appointmentsService) CreateAppointment(req *models.AppointmentsCreateDT
 	return nil
 }
 
-func (s *appointmentsService) Update(clientID uint, req models.AppointmentsUpdateReqDTO) error {
-	appointments, err := s.service.GetAllAppointmentsByBarberID(req.BarberID)
+func (s *appointmentsService) Update(id uint, req models.AppointmentsUpdateReqDTO) error {
+	lastAppointments, err := s.service.GetLastAppointments(req.BarberID)
 	if err != nil {
 		return err
 	}
 
-	var lastAppointments models.Appointments
-	for _, v := range appointments {
-		if v.ClientID == clientID {
-			lastAppointments = v
-		}
-	}
-
-	if lastAppointments.Rating != nil {
+	if *lastAppointments.Rating != 0{
 		return errors.New("вы уже ставили оценку")
 	}
 

@@ -18,7 +18,7 @@ func NewBarberHandler(service service.BarberService) *BarberHandler {
 }
 
 func (h *BarberHandler) RegisterRoutes(r *gin.Engine) {
-	// Группа маршрутов /barbers
+
 	barbers := r.Group("/barbers")
 	{
 		barbers.GET("/", h.GetAll)

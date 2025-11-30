@@ -22,5 +22,6 @@ type AppointmentsCreateDTO struct {
 
 type AppointmentsUpdateReqDTO struct {
 	BarberID uint `json:"barber_id" gorm:"not null"`
+	ClientID uint   `json:"client_id" gorm:"not null"`
 	Rating   int  `json:"rating" gorm:"default:0"`
 }
