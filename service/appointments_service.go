@@ -87,7 +87,7 @@ func (s *appointmentsService) Update(id uint, req models.AppointmentsUpdateReqDT
 		return err
 	}
 
-	if *lastAppointments.Rating != 0{
+	if *lastAppointments.Rating != 0 {
 		return errors.New("вы уже ставили оценку")
 	}
 
@@ -162,6 +162,8 @@ func (s *appointmentsService) ratingBarbers(barberID uint) error {
 		AvgRating: avg_rating,
 	}
 
-	s.barber.Update(barberID, ratingInput)
+	if err := s.barber.Update(barberID, ratingInput); err != nil {
+		return err
+	}
 	return nil
 }
