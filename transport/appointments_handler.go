@@ -23,11 +23,11 @@ func (h *AppointmentsHandler) RegisterRoutes(r *gin.Engine) {
 	{
 		appointments.GET("/", h.GetAllAppointments)
 		appointments.GET("/:id", h.GetAppointmentByID)
+		appointments.GET("/barbers/:barbersID", h.GetAllAppointmentsByBarberID)
 		appointments.POST("/", h.CreateAppointment)
 		appointments.PATCH("/:id", h.Update)
 		appointments.DELETE("/:id", h.Delete)
 	}
-	r.GET("barbers/:barbersID/appointments", h.GetAllAppointmentsByBarberID)
 }
 
 
