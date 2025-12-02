@@ -1,0 +1,20 @@
+root = "."
+tmp_dir = "tmp"
+clean_on_exit = true
+
+[build]
+cmd = "go build -o .\\tmp\\barber.exe .\\cmd\\barber"
+bin = ".\\tmp\\barber.exe"
+
+pre_cmd = ["powershell -Command \"if (Test-Path .\\tmp\\barber.exe) { Remove-Item .\\tmp\\barber.exe -Force }\""]
+
+include_ext = ["go"]
+exclude_dir = ["tmp"]
+
+main = "magenta"
+watcher = "cyan"
+build = "yellow"
+runner = "green"
+
+stop_on_error = true
+delay = 1000
