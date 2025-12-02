@@ -2,23 +2,23 @@ package config
 
 import (
 	"fmt"
+	"log/slog"
 	"os"
 
-	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-func SetupDataBase() *gorm.DB {
-	err := godotenv.Load(".env")
-	if err != nil {
-		panic(err)
-	}
+func SetupDataBase(logger *slog.Logger) *gorm.DB {
+	
 	dbHost := os.Getenv("DB_HOST")
 	dbPort := os.Getenv("DB_PORT")
 	dbUser := os.Getenv("DB_USER")
 	dbPass := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
+	dbConnectPort := os.Getenv("PORT")
+
+	logger.Info("server started addr=:8080 env=local", "addr", dbConnectPort, "env", "local")
 
 	dsn := fmt.Sprintf("host=%v user=%v password=%v dbname=%v port=%v", dbHost, dbUser, dbPass, dbName, dbPort)
 
@@ -28,8 +28,10 @@ func SetupDataBase() *gorm.DB {
 	}), &gorm.Config{})
 
 	if err != nil {
+		logger.Error("ошибка подключения к БД", "error", err)
 		panic(err)
 	}
 
+	logger.Info("Подключение к БД прошло успешно")
 	return db
 }
