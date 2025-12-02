@@ -18,7 +18,7 @@ func SetupDataBase(logger *slog.Logger) *gorm.DB {
 	dbName := os.Getenv("DB_NAME")
 	dbConnectPort := os.Getenv("PORT")
 
-	logger.Info("server started addr=:8080 env=local", "addr", dbConnectPort, "env", "local")
+	logger.Info("server started addr=:%v env=local", "addr", dbConnectPort, "env", "local")
 
 	dsn := fmt.Sprintf("host=%v user=%v password=%v dbname=%v port=%v", dbHost, dbUser, dbPass, dbName, dbPort)
 
