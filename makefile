@@ -1,4 +1,4 @@
-APP := ./cmd/barbery/main.go
+APP := ./cmd/barber
 
 AIR := air
 
